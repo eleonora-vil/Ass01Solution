@@ -4,26 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SalesWPFApp"
-         Title="Order Management"
- Width="910"
- Height="850"
- Loaded="Window_Loaded"
- WindowStartupLocation="CenterScreen"
- mc:Ignorable="d">
+        Title="Order Management"
+        Width="910"
+        Height="795"
+        Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d">
     <Window.Resources>
-        <!--  Define some basic styles and colors  -->
-        <Color x:Key="PrimaryColor">#3498db</Color>
-        <Color x:Key="SecondaryColor">#2ecc71</Color>
-        <Color x:Key="AccentColor">#e74c3c</Color>
-        <Color x:Key="BackgroundColor">#ecf0f1</Color>
-        <Color x:Key="TextColor">#2c3e50</Color>
-
-        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
-        <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}" />
-        <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}" />
-        <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}" />
-        <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}" />
-
+        <!-- Your existing styles -->
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Margin" Value="5" />
@@ -38,14 +26,45 @@
             <Setter Property="Padding" Value="5" />
         </Style>
         <Style TargetType="Button">
+            <Setter Property="Width" Value="120" />
+            <Setter Property="Height" Value="30" />
             <Setter Property="Margin" Value="5" />
-            <Setter Property="Padding" Value="5,2" />
-            <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="5" />
             <Setter Property="FontSize" Value="14" />
+            <Setter Property="Background" Value="#007ACC" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#007ACC" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#005A9E" />
+                    <Setter Property="BorderBrush" Value="#005A9E" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#003E73" />
+                    <Setter Property="BorderBrush" Value="#003E73" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#D9D9D9" />
+                    <Setter Property="Foreground" Value="#A1A1A1" />
+                    <Setter Property="BorderBrush" Value="#D9D9D9" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
+        <!-- Additional styles for TextBlock, DataGrid, ListBox -->
         <Style TargetType="DataGrid">
             <Setter Property="Margin" Value="10,0,0,0" />
             <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
@@ -57,7 +76,8 @@
         </Style>
     </Window.Resources>
 
-    <Grid Background="{StaticResource BackgroundBrush}">
+    <!-- Your existing layout -->
+    <Grid Background="{StaticResource BackgroundBrush}" Margin="0,0,0,2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="2*" />
@@ -67,72 +87,57 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--  Header  -->
-        <TextBlock
-         Grid.ColumnSpan="2"
-         Margin="10"
-         HorizontalAlignment="Center"
-         FontSize="24"
-         FontWeight="Bold"
-         Foreground="{StaticResource PrimaryBrush}"
-         Text="Order Management System" />
+        <!-- Header -->
+        <Border Grid.ColumnSpan="2" Margin="10">
+            <TextBlock Margin="10"
+                       HorizontalAlignment="Center"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource PrimaryBrush}"
+                       Text="Order Management System" />
+        </Border>
 
-        <!--  Order List Section  -->
-        <StackPanel
-         Grid.Row="1"
-         Grid.Column="0"
-         Margin="10">
-            <TextBlock
-             Margin="0,10,0,0"
-             FontSize="16"
-             FontWeight="Bold"
-             Foreground="{StaticResource PrimaryBrush}"
-             Text="Orders" />
-            <ListBox
-             Name="OrdersListBox"
-             Height="350"
-             DisplayMemberPath="OrderId"
-             SelectionChanged="OrdersListBox_SelectionChanged" />
-            <Button
-             Margin="0,10,0,0"
-             Background="{StaticResource SecondaryBrush}"
-             Click="NewOrderButton_Click"
-             Content="New Order"
-             Foreground="White" />
-            <Button
-             Margin="0,10,0,0"
-             Background="BlueViolet"
-             Click="btnClearOrder"
-             Content="Clear Order"
-             Foreground="White" />
-            <Button
-             Margin="0,10,0,0"
-             Background="#FFFF2626"
-             Click="btnDeleteOrder"
-             Content="Delete Order"
-             Foreground="White" />
+        <!-- Order List Section -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,10,10,114">
+            <TextBlock Margin="0,10,0,0"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource PrimaryBrush}"
+                       Text="Orders" />
+            <ListBox Name="OrdersListBox"
+                     Height="350"
+                     DisplayMemberPath="OrderId"
+                     SelectionChanged="OrdersListBox_SelectionChanged" />
+            <Button Margin="0,10,0,0"
+                    Background="{StaticResource SecondaryBrush}"
+                    Click="NewOrderButton_Click"
+                    Content="New Order"
+                    Foreground="White" />
+            <Button Margin="0,10,0,0"
+                    Click="btnClearOrder"
+                    Content="Clear Order"
+                    Foreground="White" />
+            <Button Margin="0,10,0,0"
+                    Click="btnDeleteOrder"
+                    Content="Delete Order"
+                    Foreground="White" />
         </StackPanel>
 
-        <!--  Order Details Section  -->
-        <StackPanel
-         Grid.Row="1"
-         Grid.Column="2"
-         Margin="10">
-            <TextBlock
-             Margin="0,10,0,0"
-             FontSize="16"
-             FontWeight="Bold"
-             Foreground="{StaticResource PrimaryBrush}"
-             Text="Order Details" />
+        <!-- Order Details Section -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,10,10,10">
+            <TextBlock Margin="0,10,0,0"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource PrimaryBrush}"
+                       Text="Order Details" />
             <UniformGrid Columns="2" Rows="6">
                 <TextBlock VerticalAlignment="Center" Text="Order ID:" />
-                <TextBlock
-                 Name="txtOrderID"
-                 Width="200"
-                 Height="22"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Center"
-                 Foreground="{StaticResource TextBrush}" />
+                <TextBlock Name="txtOrderID"
+                           Width="200"
+                           Height="22"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="{StaticResource TextBrush}" />
 
                 <TextBlock VerticalAlignment="Center" Text="Member ID:" />
                 <TextBox Name="txtMemberId" Width="200" />
@@ -149,64 +154,52 @@
                 <TextBlock VerticalAlignment="Center" Text="Freight:" />
                 <TextBox Name="txtFreight" Width="200" />
             </UniformGrid>
-            <Button
-             Margin="0,50,0,0"
-             Background="{StaticResource AccentBrush}"
-             Click="SaveOrderButton_Click"
-             Content="Save Order"
-             Foreground="White" />
+            <Button Margin="0,50,0,0"
+                    Background="{StaticResource AccentBrush}"
+                    Click="SaveOrderButton_Click"
+                    Content="Save Order"
+                    Foreground="White" />
 
-            <TextBlock
-             Margin="10,20,0,0"
-             FontSize="16"
-             FontWeight="Bold"
-             Foreground="{StaticResource PrimaryBrush}"
-             Text="Order Details" />
-            <DataGrid
-             Name="OrderDetailsDataGrid"
-             Height="200"
-             AutoGenerateColumns="False"
-             CanUserAddRows="True"
-             IsReadOnly="True"
-             ItemsSource="{Binding OrderDetail}"
-             SelectionChanged="OrderDetailsDataGrid_SelectionChanged">
+            <TextBlock Margin="10,20,0,0"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource PrimaryBrush}"
+                       Text="Order Details" />
+            <DataGrid Name="OrderDetailsDataGrid"
+                      Height="200"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="True"
+                      IsReadOnly="True"
+                      ItemsSource="{Binding OrderDetail}"
+                      SelectionChanged="OrderDetailsDataGrid_SelectionChanged">
                 <DataGrid.Columns>
-                    <DataGridTextColumn
-                     Width="*"
-                     Binding="{Binding ProductId}"
-                     Header="Product ID" />
-                    <DataGridTextColumn
-                     Width="*"
-                     Binding="{Binding UnitPrice}"
-                     Header="Unit Price" />
-                    <DataGridTextColumn
-                     Width="*"
-                     Binding="{Binding Quantity}"
-                     Header="Quantity" />
-                    <DataGridTextColumn
-                     Width="*"
-                     Binding="{Binding Discount}"
-                     Header="Discount" />
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding ProductId}"
+                                        Header="Product ID" />
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding UnitPrice}"
+                                        Header="Unit Price" />
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding Quantity}"
+                                        Header="Quantity" />
+                    <DataGridTextColumn Width="*"
+                                        Binding="{Binding Discount}"
+                                        Header="Discount" />
                 </DataGrid.Columns>
             </DataGrid>
-            <Button
-             x:Name="btnCreateDetail"
-             Width="577"
-             Click="btnCreateDetail_Click"
-             Content="Create/Update Details" />
-            <Button
-             x:Name="btnDeleteDetail"
-             Width="577"
-             Background="#FFFF2626"
-             Click="btnDeleteDetail_Click"
-             Content="Delete Details" />
-            <Button
-             x:Name="btnBack"
-             Width="70"
-             Margin="500,10,0,0"
-             Background="#FFBA1DFF"
-             Click="btnBack_Click"
-             Content="Close" />
+            <Button x:Name="btnCreateDetail"
+                    Width="577"
+                    Click="btnCreateDetail_Click"
+                    Content="Create/Update Details" />
+            <Button x:Name="btnDeleteDetail"
+                    Width="577"
+                    Click="btnDeleteDetail_Click"
+                    Content="Delete Details" />
+            <Button x:Name="btnBack"
+                    Width="70"
+                    Margin="500,10,0,0"
+                    Click="btnBack_Click"
+                    Content="Close" />
         </StackPanel>
     </Grid>
 </Window>

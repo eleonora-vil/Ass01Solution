@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SalesWPFApp"
         Title="WindowOrderDetails"
  Width="700"
- Height="450"
+ Height="366"
  Background="AliceBlue"
  WindowStartupLocation="CenterScreen"
  mc:Ignorable="d">
