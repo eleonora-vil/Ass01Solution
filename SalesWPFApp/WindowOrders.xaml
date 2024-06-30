@@ -6,34 +6,28 @@
         xmlns:local="clr-namespace:SalesWPFApp"
         Title="Order Management"
         Width="910"
-        Height="795"
+        Height="744"
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
     <Window.Resources>
-        <!-- Your existing styles -->
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="Padding" Value="5" />
-        </Style>
-        <Style TargetType="DatePicker">
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="Padding" Value="5" />
-        </Style>
+        <!-- Define Brushes -->
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#007ACC" />
+        <SolidColorBrush x:Key="TextBrush" Color="#333333" />
+        <SolidColorBrush x:Key="BackgroundBrush" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="SecondaryBrush" Color="#005A9E" />
+        <SolidColorBrush x:Key="AccentBrush" Color="#FF4081" />
+
+        <!-- Button Style -->
         <Style TargetType="Button">
             <Setter Property="Width" Value="120" />
             <Setter Property="Height" Value="30" />
             <Setter Property="Margin" Value="5" />
             <Setter Property="Padding" Value="5" />
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="Background" Value="#007ACC" />
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="BorderBrush" Value="#007ACC" />
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -64,7 +58,20 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <!-- Additional styles for TextBlock, DataGrid, ListBox -->
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
         <Style TargetType="DataGrid">
             <Setter Property="Margin" Value="10,0,0,0" />
             <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
@@ -76,8 +83,7 @@
         </Style>
     </Window.Resources>
 
-    <!-- Your existing layout -->
-    <Grid Background="{StaticResource BackgroundBrush}" Margin="0,0,0,2">
+    <Grid Background="{StaticResource BackgroundBrush}" Height="734" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="2*" />
@@ -87,119 +93,138 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!-- Header -->
+        <!--  Header  -->
         <Border Grid.ColumnSpan="2" Margin="10">
-            <TextBlock Margin="10"
-                       HorizontalAlignment="Center"
-                       FontSize="24"
-                       FontWeight="Bold"
-                       Foreground="{StaticResource PrimaryBrush}"
-                       Text="Order Management System" />
+            <TextBlock
+             Margin="10"
+             HorizontalAlignment="Center"
+             FontSize="24"
+             FontWeight="Bold"
+             Foreground="{StaticResource PrimaryBrush}"
+             Text="Order Management System" />
         </Border>
 
-        <!-- Order List Section -->
-        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,10,10,114">
-            <TextBlock Margin="0,10,0,0"
-                       FontSize="16"
-                       FontWeight="Bold"
-                       Foreground="{StaticResource PrimaryBrush}"
-                       Text="Orders" />
-            <ListBox Name="OrdersListBox"
-                     Height="350"
-                     DisplayMemberPath="OrderId"
-                     SelectionChanged="OrdersListBox_SelectionChanged" />
-            <Button Margin="0,10,0,0"
+        <!--  Order List Section  -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,10,10,0">
+            <TextBlock
+             Margin="0,10,0,0"
+             FontSize="16"
+             FontWeight="Bold"
+             Foreground="{StaticResource PrimaryBrush}"
+             Text="Orders" />
+            <ListBox
+             Name="OrdersListBox"
+             Height="350"
+             DisplayMemberPath="OrderId"
+             SelectionChanged="OrdersListBox_SelectionChanged" />
+            <StackPanel Orientation="Vertical" Height="184">
+                <Button
                     Background="{StaticResource SecondaryBrush}"
                     Click="NewOrderButton_Click"
                     Content="New Order"
                     Foreground="White" />
-            <Button Margin="0,10,0,0"
+                <Button
                     Click="btnClearOrder"
                     Content="Clear Order"
                     Foreground="White" />
-            <Button Margin="0,10,0,0"
+                <Button
                     Click="btnDeleteOrder"
                     Content="Delete Order"
                     Foreground="White" />
-        </StackPanel>
-
-        <!-- Order Details Section -->
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,10,10,10">
-            <TextBlock Margin="0,10,0,0"
-                       FontSize="16"
-                       FontWeight="Bold"
-                       Foreground="{StaticResource PrimaryBrush}"
-                       Text="Order Details" />
-            <UniformGrid Columns="2" Rows="6">
-                <TextBlock VerticalAlignment="Center" Text="Order ID:" />
-                <TextBlock Name="txtOrderID"
-                           Width="200"
-                           Height="22"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Foreground="{StaticResource TextBrush}" />
-
-                <TextBlock VerticalAlignment="Center" Text="Member ID:" />
-                <TextBox Name="txtMemberId" Width="200" />
-
-                <TextBlock VerticalAlignment="Center" Text="Order Date:" />
-                <DatePicker Name="OrderDatePicker" Width="200" />
-
-                <TextBlock VerticalAlignment="Center" Text="Require Date:" />
-                <DatePicker Name="RequireDatePicker" Width="200" />
-
-                <TextBlock VerticalAlignment="Center" Text="Shipped Date:" />
-                <DatePicker Name="ShippedDatePicker" Width="200" />
-
-                <TextBlock VerticalAlignment="Center" Text="Freight:" />
-                <TextBox Name="txtFreight" Width="200" />
-            </UniformGrid>
-            <Button Margin="0,50,0,0"
+                <Button
                     Background="{StaticResource AccentBrush}"
                     Click="SaveOrderButton_Click"
                     Content="Save Order"
                     Foreground="White" />
+            </StackPanel>
+        </StackPanel>
 
-            <TextBlock Margin="10,20,0,0"
-                       FontSize="16"
-                       FontWeight="Bold"
-                       Foreground="{StaticResource PrimaryBrush}"
-                       Text="Order Details" />
-            <DataGrid Name="OrderDetailsDataGrid"
-                      Height="200"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="True"
-                      IsReadOnly="True"
-                      ItemsSource="{Binding OrderDetail}"
-                      SelectionChanged="OrderDetailsDataGrid_SelectionChanged">
+        <!--  Order Details Section  -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,10,10,0">
+            <TextBlock
+             Margin="0,10,0,0"
+             FontSize="16"
+             FontWeight="Bold"
+             Foreground="{StaticResource PrimaryBrush}"
+             Text="Order Details" />
+            <UniformGrid Columns="2" Rows="6">
+                <TextBlock VerticalAlignment="Center" Text="Order ID:" />
+                <TextBlock
+                 Name="txtOrderID"
+                 Width="200"
+                 Height="22"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Foreground="{StaticResource TextBrush}" />
+
+                <TextBlock VerticalAlignment="Center" Text="Member ID:" Width="224" />
+                <TextBox Name="txtMemberId" Width="276" />
+
+                <TextBlock VerticalAlignment="Center" Text="Order Date:" Width="224" />
+                <DatePicker Name="OrderDatePicker" Width="276" />
+
+                <TextBlock VerticalAlignment="Center" Text="Require Date:" Width="224" />
+                <DatePicker Name="RequireDatePicker" Width="276" />
+
+                <TextBlock VerticalAlignment="Center" Text="Shipped Date:" Width="224" />
+                <DatePicker Name="ShippedDatePicker" Width="276" />
+
+                <TextBlock VerticalAlignment="Center" Text="Freight:" Width="224" />
+                <TextBox Name="txtFreight" Width="276" />
+            </UniformGrid>
+
+            <TextBlock
+             Margin="10,20,0,0"
+             FontSize="16"
+             FontWeight="Bold"
+             Foreground="{StaticResource PrimaryBrush}"
+             Text="Order Details" />
+            <DataGrid
+             Name="OrderDetailsDataGrid"
+             Height="200"
+             AutoGenerateColumns="False"
+             CanUserAddRows="True"
+             IsReadOnly="True"
+             ItemsSource="{Binding OrderDetail}"
+             SelectionChanged="OrderDetailsDataGrid_SelectionChanged">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*"
-                                        Binding="{Binding ProductId}"
-                                        Header="Product ID" />
-                    <DataGridTextColumn Width="*"
-                                        Binding="{Binding UnitPrice}"
-                                        Header="Unit Price" />
-                    <DataGridTextColumn Width="*"
-                                        Binding="{Binding Quantity}"
-                                        Header="Quantity" />
-                    <DataGridTextColumn Width="*"
-                                        Binding="{Binding Discount}"
-                                        Header="Discount" />
+                    <DataGridTextColumn
+                     Width="*"
+                     Binding="{Binding ProductId}"
+                     Header="Product ID" />
+                    <DataGridTextColumn
+                     Width="*"
+                     Binding="{Binding UnitPrice}"
+                     Header="Unit Price" />
+                    <DataGridTextColumn
+                     Width="*"
+                     Binding="{Binding Quantity}"
+                     Header="Quantity" />
+                    <DataGridTextColumn
+                     Width="*"
+                     Binding="{Binding Discount}"
+                     Header="Discount" />
                 </DataGrid.Columns>
             </DataGrid>
-            <Button x:Name="btnCreateDetail"
-                    Width="577"
-                    Click="btnCreateDetail_Click"
-                    Content="Create/Update Details" />
-            <Button x:Name="btnDeleteDetail"
-                    Width="577"
-                    Click="btnDeleteDetail_Click"
-                    Content="Delete Details" />
-            <Button x:Name="btnBack"
-                    Width="70"
-                    Margin="500,10,0,0"
-                    Click="btnBack_Click"
-                    Content="Close" />
+            <!-- Arrange Buttons in a Single Row -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <Button
+                 x:Name="btnCreateDetail"
+                 Width="190"
+                 Click="btnCreateDetail_Click"
+                 Content="Create/Update Details" />
+                <Button
+                 x:Name="btnDeleteDetail"
+                 Width="190"
+                 Click="btnDeleteDetail_Click"
+                 Content="Delete Details" />
+                <Button
+                 x:Name="btnBack"
+                 Width="70"
+                 Margin="0,0,0,0"
+                 Click="btnBack_Click"
+                 Content="Close" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
