@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SalesWPFApp"
         Title="Order Management"
         Width="910"
-        Height="744"
+        Height="775"
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d">
@@ -83,7 +83,7 @@
         </Style>
     </Window.Resources>
 
-    <Grid Background="{StaticResource BackgroundBrush}" Height="734" VerticalAlignment="Top">
+    <Grid Background="{StaticResource BackgroundBrush}" Margin="0,0,0,-6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="2*" />
@@ -119,20 +119,22 @@
              SelectionChanged="OrdersListBox_SelectionChanged" />
             <StackPanel Orientation="Vertical" Height="184">
                 <Button
-                    Background="{StaticResource SecondaryBrush}"
+                    Background="CornflowerBlue"
                     Click="NewOrderButton_Click"
                     Content="New Order"
                     Foreground="White" />
                 <Button
                     Click="btnClearOrder"
+                    Background="CornflowerBlue"
                     Content="Clear Order"
                     Foreground="White" />
                 <Button
                     Click="btnDeleteOrder"
+                    Background="CornflowerBlue"
                     Content="Delete Order"
                     Foreground="White" />
                 <Button
-                    Background="{StaticResource AccentBrush}"
+                    Background="Turquoise"
                     Click="SaveOrderButton_Click"
                     Content="Save Order"
                     Foreground="White" />
@@ -140,7 +142,7 @@
         </StackPanel>
 
         <!--  Order Details Section  -->
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,10,10,0">
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10,10,10,0" Height="652" VerticalAlignment="Top">
             <TextBlock
              Margin="0,10,0,0"
              FontSize="16"
@@ -190,6 +192,10 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn
                      Width="*"
+                     Binding="{Binding OrderId}"
+                     Header="OrderId" />
+                    <DataGridTextColumn
+                     Width="*"
                      Binding="{Binding ProductId}"
                      Header="Product ID" />
                     <DataGridTextColumn
@@ -210,12 +216,18 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
                 <Button
                  x:Name="btnCreateDetail"
-                 Width="190"
+                 Width="137"
                  Click="btnCreateDetail_Click"
-                 Content="Create/Update Details" />
+                 Content="Create Details" />
+                <Button
+                    x:Name="btnUpdateDetail"
+                    Width="122"
+                    Click="btnUpdateDetail_Click"
+                    Content="Update Details"
+                    IsEnabled="False"/>
                 <Button
                  x:Name="btnDeleteDetail"
-                 Width="190"
+                 Width="120"
                  Click="btnDeleteDetail_Click"
                  Content="Delete Details" />
                 <Button

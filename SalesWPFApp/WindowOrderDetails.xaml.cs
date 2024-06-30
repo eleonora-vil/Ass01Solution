@@ -74,6 +74,7 @@ namespace SalesWPFApp
 
                     orderDetailRepository.CreateOrderDetail(orderDetail);
                     MessageBox.Show("Create successful!");
+                    Close();
                 }
 
                 if (parentWindow != null)
@@ -88,8 +89,7 @@ namespace SalesWPFApp
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            WindowOrders windowOrders = new();
-            windowOrders.Show();
+           
             Close();
         }
         public void LoadOrderDetail(OrderDetail orderDetail)

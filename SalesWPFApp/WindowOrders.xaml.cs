@@ -181,16 +181,6 @@ namespace SalesWPFApp
             OrderDetailsDataGrid.ItemsSource = orderDetailRepository.GetOrderDetails();
             OrderDetailsDataGrid.Items.Refresh();
         }
-
-        private void OrderDetailsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (OrderDetailsDataGrid.SelectedItems.Count > 0)
-            {
-                // Retrieve the first selected item from OrderDetailsDataGrid
-                OrderDetail selectedOrderDetail = (OrderDetail)OrderDetailsDataGrid.SelectedItem;
-            }
-        }
-
         private void btnDeleteOrder(object sender, RoutedEventArgs e)
         {
             try
@@ -215,6 +205,31 @@ namespace SalesWPFApp
             mainWindow.Show();
             Close();
         }
+        private void btnClearOrder(object sender, RoutedEventArgs e)
+        {
+            txtOrderID.Text = "";
+            txtMemberId.Clear();
+            txtFreight.Clear();
+            OrderDatePicker.SelectedDate = null;
+            ShippedDatePicker.SelectedDate = null;
+            RequireDatePicker.SelectedDate = null;
+        }
+
+        private void OrderDetailsDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (OrderDetailsDataGrid.SelectedItems.Count > 0)
+            {
+                // Enable the btnUpdateDetail button
+                btnUpdateDetail.IsEnabled = true;
+            }
+            else
+            {
+                // Disable the btnUpdateDetail button if no item is selected
+                btnUpdateDetail.IsEnabled = false;
+            }
+        }
+
+
 
         private void CreateOrderDetailFromSelectedOrder()
         {
@@ -228,9 +243,13 @@ namespace SalesWPFApp
         }
         private void btnCreateDetail_Click(object sender, RoutedEventArgs e)
         {
-            CreateOrderDetailFromSelectedOrder();
+           
             WindowOrderDetails windowOrderDetails = new WindowOrderDetails(this);
             windowOrderDetails.Show();
+        }
+        private void btnUpdateDetail_Click(object sender, RoutedEventArgs e)
+        {
+            CreateOrderDetailFromSelectedOrder();
         }
 
         private void btnDeleteDetail_Click(object sender, RoutedEventArgs e)
@@ -252,14 +271,5 @@ namespace SalesWPFApp
             }
         }
 
-        private void btnClearOrder(object sender, RoutedEventArgs e)
-        {
-            txtOrderID.Text = "";
-            txtMemberId.Clear();
-            txtFreight.Clear();
-            OrderDatePicker.SelectedDate = null;
-            ShippedDatePicker.SelectedDate = null;
-            RequireDatePicker.SelectedDate = null;
-        }
     }
 }

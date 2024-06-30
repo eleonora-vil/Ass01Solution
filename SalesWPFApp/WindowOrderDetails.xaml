@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:SalesWPFApp"
         Title="WindowOrderDetails"
  Width="700"
- Height="366"
+ Height="387"
  Background="AliceBlue"
  WindowStartupLocation="CenterScreen"
  mc:Ignorable="d">
-    <Grid Margin="20" Background="AliceBlue">
+    <Grid Margin="20,20,20,4" Background="AliceBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -120,7 +120,7 @@
              Click="btnSave_Click"
              Content="Save"
              FontWeight="Bold"
-             Foreground="White" />
+             Foreground="White" Height="47" />
             <Button
              x:Name="btnClose"
              Width="100"
@@ -129,7 +129,7 @@
              Click="btnClose_Click"
              Content="Close"
              FontWeight="Bold"
-             Foreground="White" />
+             Foreground="White" Height="44" />
         </StackPanel>
     </Grid>
 </Window>

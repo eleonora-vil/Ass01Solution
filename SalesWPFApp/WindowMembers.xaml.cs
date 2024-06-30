@@ -92,11 +92,13 @@ namespace SalesWPFApp
             {
                 string simpleEmailPattern = @"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b";
                 Regex emailRegex = new Regex(simpleEmailPattern);
+
                 if (!emailRegex.IsMatch(txtEmail.Text))
                 {
                     MessageBox.Show("Invalid email format");
                     return;
                 }
+
                 if (dgData.SelectedItem == null)
                 {
                     MessageBox.Show("No member selected");
@@ -106,23 +108,11 @@ namespace SalesWPFApp
                 Member selectedMember = (Member)dgData.SelectedItem;
                 if (selectedMember != null)
                 {
-                    // Check if the new email already exists
-                    bool emailExists = false;
-                    var members = memberRepository.GetMembers(); // Assuming this method gets all members
-
-                    foreach (var member in members)
+                    // Check if email is being changed
+                    if (txtEmail.Text != selectedMember.Email)
                     {
-                        if (member.Email.Equals(txtEmail.Text, StringComparison.OrdinalIgnoreCase))
-                        {
-                            emailExists = true;
-                            break;
-                        }
-                    }
-
-                    if (emailExists)
-                    {
-                        MessageBox.Show("Email already exists. Please choose a different email.");
-                        return;
+                        MessageBox.Show("Cannot change email address.");
+                        return; // Don't proceed with update if email is being changed
                     }
 
                     // Update member details

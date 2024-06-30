@@ -186,8 +186,9 @@ namespace SalesWPFApp
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            // Đóng cửa sổ hiện tại
-            this.Close();
+            MainWindow mainWindow = new();
+            mainWindow.Show();
+            Close();
         }
 
         public void Window_Loaded(object sender, RoutedEventArgs e)

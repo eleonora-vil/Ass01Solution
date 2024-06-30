@@ -133,7 +133,7 @@
         </ScrollViewer>
 
         <!-- Buttons for Create, Update, Delete, Clear, and Close actions -->
-            <StackPanel Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Left" Height="50" Margin="20,10,0,380" Grid.Column="1" Grid.RowSpan="2">
+            <StackPanel Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Left" Height="50" Margin="10,9,0,381" Grid.Column="1" Grid.RowSpan="2">
             <Button x:Name="btnCreate" Width="120" Margin="5"  Height="30"
                     Click="btnCreate_Click" Content="Create" />
             <Button x:Name="btnUpdate" Width="120" Margin="5"  Height="30"
